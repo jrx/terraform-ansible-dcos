@@ -1,0 +1,8 @@
+---
+# This playbook performs cleanup tasks on the workstation nodes.
+
+- name: shutdown bootstrap server
+  docker:
+    name: dcos_nginx
+    image: nginx
+    state: stopped

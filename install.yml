@@ -24,3 +24,11 @@
 
   roles:
     - node
+
+- name: Cleanup workstations
+  hosts: workstation
+  serial: 10
+  become: true
+
+  roles:
+    - workstation-cleanup
