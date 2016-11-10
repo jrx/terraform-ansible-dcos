@@ -2,8 +2,6 @@
 .DS_Store
 
 # ansible
-hosts
-group_vars/all
 *.retry
 /tmp
 
