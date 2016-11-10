@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+set -o nounset -o errexit
+export PATH=/usr/sbin:/usr/bin:$PATH
+
+interface=eth0
+
+regex="$interface +[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12} +[^ ]* +([^ ]*)"
+if [[ $(nmcli connection) =~ $regex ]]
+then
+    real_interface="${BASH_REMATCH[1]}"
+else
+    exit 1
+fi
+
+regex="inet ([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})(/[0-9]{1,3})? brd ([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})( (scope|global|$real_interface))*"$'\n'
+
+if [[ $(ip addr show $real_interface) =~ $regex ]]
+then
+    echo "${BASH_REMATCH[1]}"
+fi

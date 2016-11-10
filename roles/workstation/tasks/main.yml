@@ -82,6 +82,10 @@
   template: src=ip-detect-eth1.j2 dest={{ path_tmp }}/genconf/ip-detect mode=0644
   when: ip_detect == "eth1"
 
+- name: set IP detection script for nmcli-eth0-static
+  template: src=ip-detect-nmcli-eth0-static.j2 dest={{ path_tmp }}/genconf/ip-detect mode=0644
+  when: ip_detect == "nmcli-eth0-static"
+
 - name: generate DC/OS configuration with exhibitor backend static
   template: src=config-static.yaml.j2 dest={{ path_tmp }}/genconf/config.yaml mode=0644
   when: exhibitor == "static"
