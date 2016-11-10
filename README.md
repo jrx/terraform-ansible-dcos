@@ -1,115 +1,121 @@
-# ansible-dcos
+# DC/OS-IN-A-BOX
 
-This ansible playbook installs DC/OS and should run on CentOS/RHEL 7. The installation steps are based on the [Advanced Installation Guide](https://dcos.io/docs/latest/administration/installing/custom/advanced/) of DC/OS.
+This ansible playbook installs DC/OS and has to be run on CentOS/RHEL 7. The
+installation steps are based on the
+[Advanced Installation Guide](https://dcos.io/docs/latest/administration/installing/custom/advanced/)
+of DC/OS.
 
-## (Optional) Create CentOS machines in AWS
+The playbooks are tested and configured for Intel NUC5CPYH computers with
+CentOS 7.
 
-This repo includes the Terraform script `terraform/aws.tf` to create the CentOS machines to run the Ansible script on. This script is just for testing purposes and you don't have to use it.
+## Differences to Normal DC/OS Installation
 
-- Copy `terraform/aws.tf` to `./aws.tf`
-- Run `terraform apply` to create the nodes on AWS
+- The bootstrap node can be the same like a master node.
 
-There is also the script `setup-ansible.sh` that reads out the IPs from the machines created on AWS and creates the Ansible configuration files `group_vars/all/networking` and `hosts` by using the `.example` files as a template.
+  For this sake the `docker` restart of the DC/OS install scripts was disabled.
 
-- Run `bash ./setup-ansible.sh` to overwrite the Ansible configuration files.
+- Overlay storage driver for docker is disabled (as it doesn't work on an
+  Intel NUC5CPYH).
 
-## Steps for installation
+- Additional software gets installed used by the `node-control` script.
 
-- Copy `host.example` to `hosts` and fill in the (public) IP addresses of your cluster. If you followed the steps above this is already done. For example:
+## Prerequisites
 
-```
-[workstations]
-1.0.0.1
+You need to have Ansible installed.
 
-[masters]
-1.0.0.2
+## Hardware Preparation
 
-[agents]
-1.0.0.3
-1.0.0.4
+1. Enter BIOS (only for Intel NUC5CPYH computers)
+   # TODO Test this again
+   - Set time
+   - Advanced -> Set fan profile to "Cool"
+   - Advanced -> Boot options -> Boot OS -> Select `Linux`
+   - (Optional) Save profile as `DC/OS`
+   - Exit BIOS
 
-[agents_public]
-1.0.0.5
+2. Install CentOS on each node
+   - Language: English (US)
+   - Keyboard: English (US)
+   - Use network time
+   - Partitioning:
+     - EFI system partition (200 MiB)
+     - boot partition (500 MiB, ext4, no LVM, mount point `/boot`)
+     - root partition (rest of space available, ext4, no LVM, mount point `/`)
+   - Security policy: General purpose profile
+   - Create **no additional users**.
+   - Choose a root password (should be the same on all machines).
 
-[common:children]
-workstations
-masters
-agents
-agents_public
-```
+3. Configure CentOS
+   - Configure IP address and internet connection
 
-- Copy the directory `group_vars/all.example` to `group_vars/all`.
+     An interface with the name `eth0` should be configured:
 
-- Within the file `group_vars/all/networking.yaml` you have to define all the (internal/private) IPs of your Cluster. An example is listed below:
+     It's encouraged to organize static IP addresses like this, but if you know
+     what you do you can choose different IP addresses:
 
-```
----
-# Choose the IP Detect Script
-# options: eth0, eth1, aws, gce
-ip_detect: aws
+     - Bootstrap node: `1.0.0.1` or the same as a master node
+     - Master nodes: `1.0.10.1-255`
+     - Private agent nodes: `1.0.20.1-255`
+     - Public agent nodes: `1.0.30.1-255`
 
-# (internal) IP Address of the Workstation
-workstation_ip: 1.0.0.1
+     Subnet mask: `255.255.0.0` (`/16`)
 
-# (internal) IP Addresses for the Master Nodes
-master_list: |
-  - 1.0.0.2
+     It's also encouraged to use additionally to the static internal IPs a
+     dynamic IP allocated via DHCP, to allow internet access on existing
+     networks quickly.
 
-# DNS Resolvers
-resolvers: |
-  - 8.8.4.4
-  - 8.8.8.8
+     The network interface has to be controlled by the NetworkManager.
 
-# DNS Search Domain
-dns_search: None
-```
+     The easiest is to configure the network interface via the pre-installed
+     tool `nmtui` which is a terminal graphics interface.
 
-- There is another file called `group_vars/all/setup.yaml`. This file is for configuring DC/OS. You have to fill in the variables that match your preferred configuration. The variables are explained within the example below:
+## Install Steps
 
-```
----
-# Name of the DC/OS Cluster
-cluster_name: dcos-ansible
+1. Fill in the IP addresses of your cluster inside `hosts` file.
 
-# Download URL for DC/OS
-dcos_download: https://downloads.dcos.io/dcos/stable/dcos_generate_config.sh
+2. Within the file `group_vars/all/networking.yaml` you have to define all the
+   (internal/private) IPs of your Cluster.
 
-# Install latest operating system updates
-# options: true, false
-system_updates: true
+3. There is another file called `group_vars/all/setup.yaml`. This file is for
+   configuring DC/OS. You have to fill in the variables that match your
+   preferred configuration.
 
-# Configuration for the Exhibitor Storage Backend
-# options: aws_s3, zookeeper, shared_filesystem, static
-exhibitor: static
+   > Normally you don't have to change something there :)
 
-# AWS S3 Credentials (only needed for exhibitor: aws_s3)
-aws_access_key_id: "******"
-aws_secret_access_key: "******"
-aws_region: us-west-2
-s3_bucket: janr-bucket
-s3_prefix: s3-website
+4. Install SSH keys on all nodes.
 
-# This parameter specifies your desired security mode. (only for Mesosphere Enterprise DC/OS)
-# options: disabled, permissive, strict
-security: permissive
+   1. Generate a new key.
 
-# Configure rexray to enable support of external volumes (only for Mesosphere Enterprise DC/OS)
-# options: empty, file
-rexray_config_method: empty
+      ```
+      ssh-keygen
+      ```
 
-# DC/OS credentials (only for Mesosphere Enterprise DC/OS)
-superuser_username: admin
-superuser_password_hash: "$6$rounds=656000$8CXbMqwuglDt3Yai$ZkLEj8zS.GmPGWt.dhwAv0.XsjYXwVHuS9aHh3DMcfGaz45OpGxC5oQPXUUpFLMkqlXCfhXMloIzE0Xh8VwHJ." # Password: admin
-```
+      And save it as `dcos-in-a-box`. It's encouraged to use a passphrase for
+      the new SSH key.
 
-- Run `ansible-playbook install.yml`
+   2. Authorize your key on all nodes
+
+      This can be easily done using the `node-control` script. Turn on all nodes
+      before executing
+
+      ```
+      ./node-control ssh setup
+      ```
+
+      Enter the root-password for each node.
+
+      > To remove access with your key again, use
+      >
+      > ```
+      > ./node-control ssh wipe
+      > ```
+
+4. Run `./node-control install`
 
 ## Steps for uninstallation
 
 This uninstall playbook runs a cleanup script on the nodes.
 
-- Run `ansible-playbook uninstall.yml`
-
-If you created the AWS environment with the Terraform script you can delete the AWS stack by running the command below.
-
-- Run `terraform destroy`
+```
+./node-control uninstall
+```
