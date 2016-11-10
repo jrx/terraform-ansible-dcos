@@ -1,4 +1,12 @@
 #!/usr/bin/env bash
 set -o nounset -o errexit
 export PATH=/usr/sbin:/usr/bin:$PATH
-echo $(ip addr show eth1 | grep -Eo '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
+
+interface=eth1
+
+regex="inet ([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})"
+
+if [[ $(ip addr show $interface) =~ $regex ]]
+then
+    echo "${BASH_REMATCH[1]}"
+fi
