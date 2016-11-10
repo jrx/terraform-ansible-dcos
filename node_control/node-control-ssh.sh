@@ -17,7 +17,7 @@ case $1 in
         echo "    Wipes specified key from the list of authorized keys of all"
         echo "    remote machines."
         ;;
-    setup)
+    setup|wipe)
         key_file="$2"
 
         if [ -z "$key_file" ]; then
@@ -37,17 +37,35 @@ case $1 in
 
         # FIXME Currently default user is always root, provide a parameter for user.
 
-        # Setup key on nodes.
-        while read node; do
-            echo "Setting up key for node $node..."
+        case $1 in
+            setup)
+                # Setup key on nodes.
+                while read node; do
+                    echo "Setting up key for node $node..."
 
-            set +e
-            if ssh root@${node} "bash -s" < ./remote-key-setup.sh "'$(cat ${key_file})'"; then
-                echo "DONE"
-            fi
-            set -e
+                    set +e
+                    if ssh root@${node} "bash -s" < ./remote-key-setup.sh "'$(cat ${key_file})'"; then
+                        echo "DONE"
+                    fi
+                    set -e
 
-        done <<< "$nodes"
+                done <<< "$nodes"
+                ;;
+            wipe)
+                # Rescind ssh access on nodes.
+                while read node; do
+                    echo -n "Wiping key for node $node... "
+
+                    # FIXME Make this job parallel.
+                    set +e
+                    if ssh root@${node} "bash -s" < ./remote-key-wipe.sh "'$(cat ${key_file})'"; then
+                        echo "WIPED"
+                    fi
+                    set -e
+
+                done <<< "$nodes"
+                ;;
+        esac
         ;;
     *)
         errecho "'$1' is not a valid command."
