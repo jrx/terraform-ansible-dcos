@@ -1,0 +1,27 @@
+---
+# Name of the DC/OS Cluster
+cluster_name: dcos-in-a-box
+
+# Download URL for DC/OS
+dcos_download: https://downloads.dcos.io/dcos/stable/dcos_generate_config.sh
+
+# Install latest operating system updates
+# options: true, false
+system_updates: true
+
+# Configuration for the Exhibitor Storage Backend
+# options: aws_s3, zookeeper, shared_filesystem, static
+exhibitor: static
+
+# DC/OS credentials (only for Mesosphere Enterprise DC/OS)
+superuser_username: admin
+superuser_password_hash: "$6$rounds=656000$8CXbMqwuglDt3Yai$ZkLEj8zS.GmPGWt.dhwAv0.XsjYXwVHuS9aHh3DMcfGaz45OpGxC5oQPXUUpFLMkqlXCfhXMloIzE0Xh8VwHJ."
+# Password: admin
+
+# This parameter specifies your desired security mode. (only for Mesosphere Enterprise DC/OS)
+# options: disabled, permissive, strict
+security: permissive
+
+# Configure rexray to enable support of external volumes (only for Mesosphere Enterprise DC/OS)
+# options: empty, file
+rexray_config_method: empty

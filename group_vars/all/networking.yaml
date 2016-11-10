@@ -1,0 +1,19 @@
+---
+# Choose the IP Detect Script
+# options: eth0, eth1, aws, gce, nmcli-eth0-static
+ip_detect: nmcli-eth0-static
+
+# (internal) IP Address of the Workstation
+workstation_ip: 1.0.10.1
+
+# (internal) IP Addresses for the Master Nodes
+master_list: |
+  - 1.0.10.1
+
+# DNS Resolvers
+resolvers: |
+  - 8.8.4.4
+  - 8.8.8.8
+
+# DNS Search Domain
+dns_search: None
