@@ -8,17 +8,17 @@
     exclude: docker-engine
   when: system_updates
 
-- name: enable overlay module
-  template: src=overlay.conf.j2 dest=/etc/modules-load.d/overlay.conf mode=0644
+# SELinux python bindings are needed for copy operations of Ansible.
+- name: install SELinux python bindings
+  yum:
+    name: "libselinux-python"
+    state: present
 
 - name: enable docker yum repo
   template: src=docker.repo.j2 dest=/etc/yum.repos.d/docker.repo mode=0644
 
 - name: create docker systemd directory
   file: path=/etc/systemd/system/docker.service.d/ state=directory mode=0755
-
-- name: configure docker to use overlay driver
-  template: src=override.conf.j2 dest=/etc/systemd/system/docker.service.d/override.conf mode=0644
 
 - name: install docker packages
   yum:

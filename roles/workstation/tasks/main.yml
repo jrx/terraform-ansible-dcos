@@ -101,6 +101,13 @@
 - name: generate DC/OS bootstrap files
   shell: bash dcos_generate_config.sh chdir={{ path_tmp }}
 
+# To allow bootstrapping from master node, we disable docker restarts so the
+# serving nginx server is not shutdown.
+- name: disable docker restart (1/2)
+  replace: dest={{ path_tmp }}/genconf/serve/dcos_install.sh regexp="systemctl restart systemd-journald" replace=""
+- name: disable docker restart (2/2)
+  replace: dest={{ path_tmp }}/genconf/serve/dcos_install.sh regexp="systemctl restart docker" replace=""
+
 - name: start web server to serve the bootstrap files
   docker:
     name: dcos_nginx
