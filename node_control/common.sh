@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+errecho() {
+    echo "$@" 1>&2;
+}
+
 ask_for_confirmation() {
     while true; do
         read -p "$1 " choice
@@ -19,6 +23,7 @@ ask_for_confirmation() {
     done
 }
 
+export -f errecho
 export -f ask_for_confirmation
 
 export masters=$(./ansible-ini-parser '../hosts' masters)
