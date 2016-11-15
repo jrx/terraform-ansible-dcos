@@ -54,7 +54,7 @@ case $1 in
 
                     # FIXME Make this job parallel.
                     set +e
-                    if ssh root@${node} "bash -s" < ./remote-key-wipe.sh "'$(cat ${key_file})'"; then
+                    if ssh root@${node} "bash -s" < ./remote-ssh-keys-wipe.sh "'$(cat ${key_file})'"; then
                         echo "WIPED"
                     fi
                     set -e
