@@ -1,10 +1,6 @@
 #!/usr/bin/env bash
 set -e
 
-errecho() {
-    echo "$@" 1>&2;
-}
-
 case $1 in
     help)
         echo "node-control ssh [-u=root] COMMAND [OPTIONS]"
