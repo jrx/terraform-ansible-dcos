@@ -14,8 +14,8 @@ CentOS 7.
 
   For this sake the `docker` restart of the DC/OS install scripts was disabled.
 
-- Overlay storage driver for docker is disabled (as it doesn't work on an
-  Intel NUC5CPYH).
+- Overlay storage driver for docker is disabled (as it doesn't work on kernel
+  versions < 3.18, CentOS 7 uses 3.10).
 
 - Additional software gets installed used by the `node-control` script.
 
