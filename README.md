@@ -26,12 +26,12 @@ You need to have Ansible installed.
 ## Hardware Preparation
 
 1. Enter BIOS (only for Intel NUC5CPYH computers)
-   # TODO Test this again
-   - Set time
-   - Advanced -> Set fan profile to "Cool"
-   - Advanced -> Boot options -> Boot OS -> Select `Linux`
+   - Advanced -> Main -> Set time
+   - Advanced -> Cooling -> Set `Fan Control Mode` to `Cool`
+   - Advanced -> Boot -> Boot Configuration -> UEFI Boot -> OS Selection ->
+     Select `Linux`
    - (Optional) Save profile as `DC/OS`
-   - Exit BIOS
+   - Exit and Save BIOS
 
 2. Install CentOS on each node
    - Language: English (US)
