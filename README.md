@@ -99,7 +99,7 @@ You need to have Ansible installed.
       before executing
 
       ```
-      ./node-control ssh setup
+      ./node-control ssh-keys install
       ```
 
       Enter the root-password for each node.
@@ -107,7 +107,7 @@ You need to have Ansible installed.
       > To remove access with your key again, use
       >
       > ```
-      > ./node-control ssh wipe
+      > ./node-control ssh-keys wipe
       > ```
 
 4. Run `./node-control install`
