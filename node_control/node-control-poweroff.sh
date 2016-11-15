@@ -44,10 +44,7 @@ case "$1" in
                 specified_nodes=${specified_nodes:0:$((${#specified_nodes} - 1))}
             fi
 
-            read -p "Are you sure you want to shutdown $count_string device(s) [y/n]? " choice
-            if [ "$choice" != "y" ] && [ "$choice" != "Y" ] && [ "$choice" != "yes" ]; then
-                exit
-            fi
+            ask_for_confirmation "Are you sure you want to shutdown $count device(s) [y/n]?"
         fi
 
         while read node; do
