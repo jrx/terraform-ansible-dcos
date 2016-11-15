@@ -7,9 +7,9 @@ case $1 in
         echo
         echo "Available commands:"
         echo
-        echo "setup KEY"
+        echo "setup KEY-FILE"
         echo "    Setup ssh key on all remote machines."
-        echo "wipe KEY"
+        echo "wipe KEY-FILE"
         echo "    Wipes specified key from the list of authorized keys of all"
         echo "    remote machines."
         ;;
