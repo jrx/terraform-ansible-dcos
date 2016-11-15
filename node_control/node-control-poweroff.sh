@@ -9,7 +9,7 @@ case "$1" in
         echo
         echo "Powers down all connected nodes or all specified NODES. If all master"
         echo "nodes are shutdown, DC/OS is likely not to work any more. In this case"
-        echo "a reinstall is needed."
+        echo "a reinstall is needed ('node-control reinstall')."
         echo
         echo "-y, --yes"
         echo "    Don't ask for confirmation, just poweroff."
