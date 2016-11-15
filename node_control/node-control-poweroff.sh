@@ -16,6 +16,7 @@ case "$1" in
         ;;
     *)
         # Parse parameters
+        count=0
         while [ $# -ge 1 ]; do
             case "$1" in
                 -y|--yes)
@@ -28,16 +29,19 @@ case "$1" in
                     #       master1, m1, agent3, a3, agent_public12, p12, public_agent12
                     #       public-agent12, agent-public12, ap12, pa12
                     specified_nodes+="$1"$'\n'
+                    count=$((count+1))
                     shift
                     ;;
             esac
         done
 
         if [ -z "$dont_ask" ]; then
-            if [ ${#specified_nodes[@]} -eq 0 ]; then
-                count_string="all"
+            if [ ${count} -eq 0 ]; then
+                count="all"
+                specified_nodes="$nodes"
             else
-                count_string="${#specified_nodes[@]}"
+                # Strip away trailing \n.
+                specified_nodes=${specified_nodes:0:$((${#specified_nodes} - 1))}
             fi
 
             read -p "Are you sure you want to shutdown $count_string device(s) [y/n]? " choice
