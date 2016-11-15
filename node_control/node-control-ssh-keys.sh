@@ -40,7 +40,7 @@ case $1 in
                     echo "Setting up key for node $node..."
 
                     set +e
-                    if ssh root@${node} "bash -s" < ./remote-key-setup.sh "'$(cat ${key_file})'"; then
+                    if ssh root@${node} "bash -s" < ./remote-ssh-keys-install.sh "'$(cat ${key_file})'"; then
                         echo "DONE"
                     fi
                     set -e
