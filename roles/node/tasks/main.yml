@@ -27,5 +27,4 @@
   when: "'agents_public' in group_names"
 
 - name: install DC/OS
-  shell: cd {{ path_tmp }}; sudo bash dcos_install.sh {{ role }}
-  ignore_errors: yes
+  shell: cd {{ path_tmp }}; sudo bash dcos_install.sh {{ role }} -d
