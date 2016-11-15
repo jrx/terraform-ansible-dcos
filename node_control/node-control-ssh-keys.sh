@@ -13,7 +13,7 @@ case $1 in
         echo "    Wipes specified key from the list of authorized keys of all"
         echo "    remote machines."
         ;;
-    setup|wipe)
+    install|wipe)
         key_file="$2"
 
         if [ -z "$key_file" ]; then
