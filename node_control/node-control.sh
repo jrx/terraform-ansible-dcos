@@ -8,5 +8,5 @@ if [ -z "$subcommand" ]; then
     exit 1
 fi
 
-source get-config.sh
+source common.sh
 bash node-control-${subcommand}.sh "${@:2}"
