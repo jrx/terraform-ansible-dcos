@@ -32,5 +32,3 @@
 
   roles:
     - workstation-cleanup
-
-- debug: msg="FINISHED! DC/OS UI can be now accessed by typing in one of the master IPs into the browser. To visit the ZooKeeper exhibitor in your browser, type `<master-IP>/exhibitor`." verbosity=0
