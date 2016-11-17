@@ -50,7 +50,7 @@ case "$1" in
         while read node; do
             echo "Powering down $node..."
             ssh -n root@${node} poweroff &
-        done <<< "$nodes"
+        done <<< "$specified_nodes"
         wait
         ;;
 esac
