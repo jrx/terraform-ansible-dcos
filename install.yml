@@ -18,7 +18,7 @@
     - workstation
 
 - name: deploy DC/OS
-  hosts: [ masters, agents, agents_public]
+  hosts: [masters, agents, agents_public]
   serial: 10
   become: true
 

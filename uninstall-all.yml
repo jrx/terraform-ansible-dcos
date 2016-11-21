@@ -1,4 +1,4 @@
-- hosts: [ masters, agents, agents_public]
+- hosts: [masters, agents, agents_public]
   become: true
   tasks:
 
