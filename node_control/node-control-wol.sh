@@ -27,6 +27,17 @@ case $1 in
 
         wait
         ;;
+    wake)
+        while read line; do
+            regex="([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})=([0-9A-F][0-9A-F]:[0-9A-F][0-9A-F]:[0-9A-F][0-9A-F]:[0-9A-F][0-9A-F]:[0-9A-F][0-9A-F]:[0-9A-F][0-9A-F])"
+            if [[ "$line" =~ $regex ]]; then
+                node="${BASH_REMATCH[1]}"
+                mac_addr="${BASH_REMATCH[2]}"
+
+                wol $mac_addr &
+            fi
+        done < wol-config.cfg
+        ;;
     *)
         errecho "Invalid argument supplied: $1"
         exit 1
