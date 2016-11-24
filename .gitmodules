@@ -1,3 +1,6 @@
 [submodule "node_control/demos/ghost"]
 	path = node_control/demos/ghost
 	url = https://github.com/jrx/ghost
+[submodule "node_control/demos/chuck-norris"]
+	path = node_control/demos/chuck-norris
+	url = https://github.com/unterstein/dcos-for-java-devs
