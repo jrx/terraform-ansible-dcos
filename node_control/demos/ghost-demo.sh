@@ -34,7 +34,7 @@ case $1 in
 
         # Waits for a single dcos-service to get healthy.
         function dcos-wait-for-service {
-            regex="/$1 *[0-9]+ *[0-9]+ *[0-9]+/[0-9]+ *([0-9]+)/[0-9]+"
+            regex="/$1 *[0-9]+ *[0-9.]+ *[0-9]+/[0-9]+ *([0-9]+)/[0-9]+"
             while true; do
                 if [[ $(dcos marathon app list) =~ $regex ]]; then
                     # Get health values.
