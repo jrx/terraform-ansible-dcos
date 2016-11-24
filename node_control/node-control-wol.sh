@@ -28,15 +28,21 @@ case $1 in
         wait
         ;;
     wake)
-        while read line; do
-            regex="([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})=([0-9A-F][0-9A-F]:[0-9A-F][0-9A-F]:[0-9A-F][0-9A-F]:[0-9A-F][0-9A-F]:[0-9A-F][0-9A-F]:[0-9A-F][0-9A-F])"
-            if [[ "$line" =~ $regex ]]; then
-                node="${BASH_REMATCH[1]}"
-                mac_addr="${BASH_REMATCH[2]}"
+        if [ -a wol-config.cfg ]; then
+            while read line; do
+                regex="([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})=([0-9A-F][0-9A-F]:[0-9A-F][0-9A-F]:[0-9A-F][0-9A-F]:[0-9A-F][0-9A-F]:[0-9A-F][0-9A-F]:[0-9A-F][0-9A-F])"
+                if [[ "$line" =~ $regex ]]; then
+                    node="${BASH_REMATCH[1]}"
+                    mac_addr="${BASH_REMATCH[2]}"
 
-                wol $mac_addr &
-            fi
-        done < wol-config.cfg
+                    wol $mac_addr &
+                fi
+            done < wol-config.cfg
+        else
+            errecho "No wol-config.cfg file found. Did you forgot to setup"
+            errecho "wake-on-lan using 'node-control wol enable'?"
+            exit 2
+        fi
         ;;
     *)
         errecho "Invalid argument supplied: $1"
