@@ -21,7 +21,11 @@ CentOS 7.
 
 ## Prerequisites
 
-You need to have Ansible installed.
+You need to have installed:
+
+- [Ansible](https://www.ansible.com/)
+- [DC/OS CLI](https://github.com/dcos/dcos-cli)
+- wol (a wake-on-lan utility)
 
 ## Hardware Preparation
 
