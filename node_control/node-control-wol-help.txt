@@ -1,0 +1,17 @@
+Manages Wake-on-LAN capabilities of your nodes.
+
+    node-control wol COMMAND [OPTIONS]
+
+Available commands:
+
+    help
+        Displays this help.
+
+    enable
+        Enables Wake-on-LAN on all nodes.
+
+    disable
+        Disables Wake-on-LAN on all nodes.
+
+    wake
+        Wakes all nodes and powers them on.

@@ -2,6 +2,9 @@
 set -e
 
 case $1 in
+    help)
+        cat node-control-wol-help.txt
+        ;;
     enable)
         # Truncate config file.
         : > wol-config.cfg
