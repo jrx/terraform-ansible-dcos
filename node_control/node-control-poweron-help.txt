@@ -1,0 +1,10 @@
+Powers on all configured nodes.
+
+    node-control poweron [help]
+
+This command takes no parameters (except 'help').
+
+This command is a synonym for 'node-control wol wake'.
+
+help
+    Displays this help.
