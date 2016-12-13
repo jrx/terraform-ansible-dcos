@@ -64,6 +64,6 @@ case $1 in
         esac
         ;;
     *)
-        errecho "'$1' is not a valid command."
+        errecho "Invalid argument supplied: $1"
         ;;
 esac

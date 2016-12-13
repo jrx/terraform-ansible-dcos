@@ -86,6 +86,6 @@ case $1 in
         echo "start to experiment with it. For example scale the blog service!"
         ;;
     *)
-        errecho "Unrecognized parameter: $1"
+        errecho "Invalid argument supplied: $1"
         ;;
 esac

@@ -84,6 +84,6 @@ case $1 in
         echo "For example scale service!"
         ;;
     *)
-        errecho "Unrecognized parameter: $1"
+        errecho "Invalid argument supplied: $1"
         ;;
 esac
