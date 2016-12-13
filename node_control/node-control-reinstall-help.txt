@@ -1,0 +1,8 @@
+Uninstalls and installs DC/OS again on all nodes.
+
+    node-control reinstall [help]
+
+This command takes in no arguments (except 'help')
+
+help
+    Displays this help.
