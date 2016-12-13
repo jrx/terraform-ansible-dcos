@@ -1,0 +1,15 @@
+Powers down all connected nodes or all specified NODES.
+
+    node-control poweroff [help] [-y] [NODES]
+
+NODES can be a list of IP addresses of all the nodes that shall be shutdown. If
+omitted, all configured nodes are shutdown.
+
+If all master nodes are shutdown, DC/OS is likely not to work any more. In this
+case a reinstall is needed ('node-control reinstall').
+
+help
+    Displays this help. Other arguments are rendered meaningless.
+
+-y, --yes
+    Don't ask for confirmation, just poweroff.

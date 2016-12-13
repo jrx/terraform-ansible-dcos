@@ -5,14 +5,7 @@ set -e
 
 case "$1" in
     help)
-        echo "node-control poweroff [-y] [NODES]"
-        echo
-        echo "Powers down all connected nodes or all specified NODES. If all master"
-        echo "nodes are shutdown, DC/OS is likely not to work any more. In this case"
-        echo "a reinstall is needed ('node-control reinstall')."
-        echo
-        echo "-y, --yes"
-        echo "    Don't ask for confirmation, just poweroff."
+        cat node-control-poweroff-help.txt
         ;;
     *)
         # Parse parameters
