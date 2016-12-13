@@ -1,0 +1,6 @@
+Uninstalls DC/OS from your cluster.
+
+    node-control uninstall [help]
+
+help
+    Displays this help.
