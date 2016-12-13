@@ -14,7 +14,6 @@ case $1 in
             if mac_addr=$(ssh root@${node} "bash -s" < ./remote-wol-enable.sh); then
                 echo "$node=$mac_addr" >> wol-config.cfg
             fi
-
         done <<< "$nodes"
         ;;
     disable)
