@@ -10,7 +10,7 @@ case $1 in
 
         if [ -z "$key_file" ]; then
             errecho "No key-file specified."
-            exit 1
+            exit 2
         fi
 
         # Filename shall end with .pub, so nobody sends accidentally a private key.
@@ -20,7 +20,7 @@ case $1 in
         then
             errecho "Key file does not have .pub ending! For security reasons it's"
             errecho "not allowed, to prevent sending the private key accidentally."
-            exit 2
+            exit 3
         fi
 
         # FIXME Currently default user is always root, provide a parameter for user.
@@ -57,5 +57,6 @@ case $1 in
         ;;
     *)
         errecho "Invalid argument supplied: $1"
+        exit 1
         ;;
 esac
