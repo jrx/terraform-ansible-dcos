@@ -116,6 +116,16 @@ You need to have installed:
 
 4. Run `./node-control install`
 
+## Controlling Your Cluster
+
+The `node-control` offers a centralized way to execute common commands on
+your cluster. See `./node-control help` for a list of available commands.
+
+> **USEFUL COMMAND**
+>
+> `./node-control execute` allows to execute arbitrary shell commands on all
+> nodes in parallel. You can use that for manual administration of your cluster.
+
 ## Steps for Uninstall
 
 This uninstall playbook runs a cleanup script on the nodes.
