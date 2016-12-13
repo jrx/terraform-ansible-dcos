@@ -8,5 +8,9 @@ if [ -z "$demo" ]; then
     exit 1
 fi
 
-cd demos
-bash $demo-demo.sh "${@:2}"
+if [ "$demo" == "help" ]; then
+    cat node-control-demo-help.txt
+else
+    cd demos
+    bash $demo-demo.sh "${@:2}"
+fi

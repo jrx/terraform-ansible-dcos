@@ -1,0 +1,28 @@
+Runs and manages demo applications for demonstration.
+
+    node-control demo DEMO|help
+
+This command can be invoked with a valid demo name or 'help' which presents
+this help.
+
+Available demos:
+
+    ghost
+        The 'ghost' demo runs ghost, which is a simple blogging platform.
+
+        Requirements:
+        - At least 1 public node
+        - At least 1 private node
+        - Total resources: 4 CPUs, 3GiB RAM, 500MiB disk.
+
+    chuck-norris
+        The 'chuck-norris' demo runs a web-server that serves jokes about
+        Chuck Norris. The responses also contain additional information like
+        the IP the response came from or the service version, which makes this
+        example very suitable for showing DC/OS capabilities with
+        load-balancing in conjunction with marathon-lb.
+
+        Requirements:
+        - At least 1 public node
+        - At least 1 private node
+        - Total resources: 4 CPUs, 4GiB RAM
