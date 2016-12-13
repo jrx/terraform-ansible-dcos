@@ -1,0 +1,6 @@
+Performs a package update on your nodes.
+
+    node-control system-update [help]
+
+help
+    Displays this help.
