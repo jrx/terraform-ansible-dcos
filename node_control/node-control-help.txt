@@ -8,6 +8,9 @@ Available commands:
     demo
         Runs and manages demo applications for demonstration.
 
+    execute
+        Executes shell commands in parallel on all of your nodes
+
     help
         Displays this help.
 
