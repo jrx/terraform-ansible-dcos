@@ -1,0 +1,12 @@
+Reboots all connected nodes or all specified NODES.
+
+    node-control reboot [help] [-y] [NODES]
+
+NODES can be a list of IP addresses of all the nodes that shall be rebooted. If
+omitted, all configured nodes are rebooted.
+
+help
+    Displays this help. Other arguments are rendered meaningless.
+
+-y, --yes
+    Don't ask for confirmation, just reboot.

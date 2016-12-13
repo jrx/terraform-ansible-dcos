@@ -3,12 +3,7 @@ set -e
 
 case "$1" in
     help)
-        echo "node-control reboot [-y] [NODES]"
-        echo
-        echo "Reboots all connected nodes or all specified NODES."
-        echo
-        echo "-y, --yes"
-        echo "    Don't ask for confirmation, just reboot."
+        cat node-control-reboot-help.txt
         ;;
     *)
         # Parse parameters
