@@ -1,0 +1,8 @@
+Checks connectivity of your local cluster.
+
+    node-control ping [help]
+
+This command does not take in any other parameters (except help).
+
+help
+    Displays this help.
