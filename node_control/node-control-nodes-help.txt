@@ -1,0 +1,8 @@
+Prints information about node configuration.
+
+    node-control nodes [help]
+
+This command does not take in any other parameters (except help).
+
+help
+    Displays this help.
