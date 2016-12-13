@@ -1,0 +1,27 @@
+Manages ssh-access on your nodes.
+
+    node-control ssh-keys COMMAND [OPTIONS]
+
+All ssh related commands of node-control access the root users of your nodes.
+
+Available commands:
+
+    help
+        Displays this help.
+
+    setup KEY-FILE
+        Setup ssh keys on all remote machines using the specified key-file.
+        It's encouraged to create a new key-file for cluster access. You
+        can easily generate a new key-file via `ssh-keygen`.
+
+        Example:
+
+        node-control ssh-keys setup dcos-in-a-box.pub
+
+    wipe KEY-FILE
+        Wipes specified key from the list of authorized keys of all remote
+        machines using the specified key-file.
+
+        Example:
+
+        node-control ssh-keys wipe dcos-in-a-box.pub

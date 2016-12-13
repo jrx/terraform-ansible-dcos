@@ -3,15 +3,7 @@ set -e
 
 case $1 in
     help)
-        echo "node-control ssh [-u=root] COMMAND [OPTIONS]"
-        echo
-        echo "Available commands:"
-        echo
-        echo "setup KEY-FILE"
-        echo "    Setup ssh key on all remote machines."
-        echo "wipe KEY-FILE"
-        echo "    Wipes specified key from the list of authorized keys of all"
-        echo "    remote machines."
+        cat node-control-ssh-keys-help.txt
         ;;
     install|wipe)
         key_file="$2"
