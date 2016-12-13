@@ -1,0 +1,6 @@
+Installs DC/OS on your cluster.
+
+    node-control install [help]
+
+help
+    Displays this help.
