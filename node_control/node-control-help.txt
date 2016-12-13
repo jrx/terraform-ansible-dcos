@@ -1,0 +1,48 @@
+node-control manages your little DC/OS-IN-A-BOX cluster and provides many
+useful utility functions.
+
+    node-control COMMAND [OPTIONS]
+
+Available commands:
+
+    demo
+        Runs and manages demo applications for demonstration.
+
+    help
+        Displays this help.
+
+    install
+        Installs DC/OS on your cluster.
+
+    nodes
+        Prints information on your nodes.
+
+    ping
+        Pings all machines from each machine to ensure that every machine is
+        accessible.
+
+    poweroff
+        Powers down all machines (open programs are killed via SIGTERM).
+
+    poweron
+        Powers on all machines using Wake-on-LAN. See 'wol' command for details
+        on how to set-up Wake-on-LAN.
+
+    reboot
+        Reboots all nodes.
+
+    reinstall
+        Uninstalls and installs DC/OS again on your nodes. Optimized shortcut
+        for 'node-control uninstall && node-control install'.
+
+    ssh-keys
+        Manages ssh-access on your nodes.
+
+    system-update
+        Performs a system update on your nodes.
+
+    uninstall
+        Uninstalls DC/OS from your cluster.
+
+    wol
+        Manages Wake-on-LAN capabilities of your cluster.
