@@ -116,7 +116,7 @@ You need to have installed:
 
 4. Run `./node-control install`
 
-## Steps for uninstallation
+## Steps for Uninstall
 
 This uninstall playbook runs a cleanup script on the nodes.
 
