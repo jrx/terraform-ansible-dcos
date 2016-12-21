@@ -6,8 +6,26 @@ case $1 in
         cat node-control-execute-help.txt
         ;;
     *)
+        # Parse parameters
+        sequential="false"
+        while [ $# -ge 1 ]; do
+            case "$1" in
+                -s|--sequential)
+                    sequential="true"
+                    shift
+                    ;;
+                *)
+                    break
+                    ;;
+            esac
+        done
+
         while read node; do
-            ssh root@${node} "${@:1}" &
+            if [ "$sequential" = "true" ]; then
+                ssh -n root@${node} "${@:1}"
+            else
+                ssh root@${node} "${@:1}" &
+            fi
         done <<< "$nodes"
 
         wait
