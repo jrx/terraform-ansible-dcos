@@ -52,17 +52,15 @@ You need to have installed:
 3. Configure CentOS
    - Configure IP address and internet connection
 
-     An interface with the name `eth0` should be configured:
+     An interface with the name `eth0` should be configured, having an
+     IP-address in the range of `1.0.10.1-255` with a subnet mask of
+     `255.255.255.0` (`/24`).
 
-     It's encouraged to organize static IP addresses like this, but if you know
-     what you do you can choose different IP addresses:
-
-     - Bootstrap node: `1.0.0.1` or the same as a master node
-     - Master nodes: `1.0.10.1-255`
-     - Private agent nodes: `1.0.20.1-255`
-     - Public agent nodes: `1.0.30.1-255`
-
-     Subnet mask: `255.255.0.0` (`/16`)
+     > **NOTE**
+     >
+     > The IP-address and subnet mask specifications are just
+     > recommendations, feel free to change them to meet your
+     > requirements.
 
      It's also encouraged to use additionally to the static internal IPs a
      dynamic IP allocated via DHCP, to allow internet access on existing
