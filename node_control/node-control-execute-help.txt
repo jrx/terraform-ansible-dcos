@@ -2,7 +2,7 @@ Executes shell commands in parallel on all of your nodes.
 
     node-control execute [help] [COMMANDS...]
 
-COMMANDS are be shell commands directly executed via ssh on all nodes.
+COMMANDS are shell commands directly executed via ssh on all nodes.
 
 help
     Displays this help. Remaining arguments are rendered meaningless when
