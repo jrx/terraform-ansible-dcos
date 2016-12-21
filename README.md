@@ -133,6 +133,13 @@ You need to have installed:
    > To disable Wake-on-LAN again, you can use the
    > `./node-control wol disable` command.
 
+   > **ANOTHER NOTE**
+   >
+   > Setting up Wake-on-LAN generates a `wol-config.cfg` file which
+   > contains the MAC-addresses of your nodes. If you use VCS, you can
+   > commit this configuration, so everyone can instantly make use of
+   > Wake-on-LAN features for your cluster.
+
 6. Run `./node-control install`
 
 ## Controlling Your Cluster
