@@ -73,6 +73,8 @@ You need to have installed:
      The easiest is to configure the network interface via the pre-installed
      tool `nmtui` which is a terminal graphics interface.
 
+   - Update CentOS with `yum update -y`.
+
 ## Install Steps
 
 1. Fill in the IP addresses of your cluster inside `hosts` file.
