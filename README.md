@@ -116,7 +116,26 @@ You need to have installed:
       > ./node-control ssh-keys wipe
       > ```
 
-4. Run `./node-control install`
+5. Setup Wake-on-LAN (optional)
+
+   Though you can power on all nodes by hand, it's way easier with
+   `node-control poweron`. To enable this feature, you need to enable
+   Wake-on-LAN on your nodes:
+
+   ```
+   ./node-control wol enable
+
+   ./node-control poweron
+   # or equivalently
+   ./node-control wol wake
+   ```
+
+   > **NOTE**
+   >
+   > To disable Wake-on-LAN again, you can use the
+   > `./node-control wol disable` command.
+
+6. Run `./node-control install`
 
 ## Controlling Your Cluster
 
