@@ -152,3 +152,8 @@ This uninstall playbook runs a cleanup script on the nodes.
 ```
 ./node-control uninstall
 ```
+
+## Presenting DC/OS
+
+A guide on how to demonstrate DC/OS's capabilities can be found
+[here](PRESENTATION.md)
