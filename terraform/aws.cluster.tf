@@ -132,9 +132,9 @@ module "elb" {
   owner = "${var.owner}"
   expiration = "${var.expiration}"
   subnets = "${module.vpc.subnets}"
-  security_groups_internal_masters = ["${module.security-groups.internal_sg}"]
-  security_groups_external_masters = ["${module.security-groups.internal_sg}","${module.security-groups.lb_masters_sg}"]
-  security_groups_external_agents = ["${module.security-groups.internal_sg}","${module.security-groups.lb_agents_sg}"]
+  security_groups_internal_masters = ["${module.security-groups.internal_master_sg}"]
+  security_groups_external_masters = ["${module.security-groups.internal_master_sg}","${module.security-groups.lb_masters_sg}"]
+  security_groups_external_agents = ["${module.security-groups.internal_public_agent_sg}","${module.security-groups.lb_agents_sg}"]
   master_instances = "${module.master.instances}"
   public_agent_instances = "${module.public_agent.instances}"
 }
@@ -147,7 +147,7 @@ module "bootstrap" {
   azs = "${var.azs_master}"
   region = "${var.region}"
   key_name = "${var.ssh_key_name}"
-  vpc_security_group_ids = ["${module.security-groups.internal_sg}","${module.security-groups.admin_sg}"]
+  vpc_security_group_ids = ["${module.security-groups.internal_bootstrap_sg}","${module.security-groups.admin_sg}"]
   subnets = "${module.vpc.subnets}"
   iam_instance_profile = ""
   instance_type = "${var.bootstrap_type}"
@@ -164,7 +164,7 @@ module "master" {
   azs = "${var.azs_master}"
   region = "${var.region}"
   key_name = "${var.ssh_key_name}"
-  vpc_security_group_ids = ["${module.security-groups.internal_sg}","${module.security-groups.admin_sg}"]
+  vpc_security_group_ids = ["${module.security-groups.internal_master_sg}","${module.security-groups.admin_sg}"]
   subnets = "${module.vpc.subnets}"
   iam_instance_profile = ""
   instance_type = "${var.master_type}"
@@ -181,7 +181,7 @@ module "agent" {
   azs = "${var.azs}"
   region = "${var.region}"
   key_name = "${var.ssh_key_name}"
-  vpc_security_group_ids = ["${module.security-groups.internal_sg}","${module.security-groups.admin_sg}"]
+  vpc_security_group_ids = ["${module.security-groups.internal_agent_sg}","${module.security-groups.admin_sg}"]
   subnets = "${module.vpc.subnets}"
   iam_instance_profile = "${module.iam.agent_profile}"
   instance_type = "${var.agent_type}"
@@ -198,7 +198,7 @@ module "public_agent" {
   azs = "${var.azs}"
   region = "${var.region}"
   key_name = "${var.ssh_key_name}"
-  vpc_security_group_ids = ["${module.security-groups.internal_sg}","${module.security-groups.admin_sg}"]
+  vpc_security_group_ids = ["${module.security-groups.internal_public_agent_sg}","${module.security-groups.admin_sg}"]
   subnets = "${module.vpc.subnets}"
   iam_instance_profile = "${module.iam.agent_profile}"
   instance_type = "${var.public_agent_type}"
