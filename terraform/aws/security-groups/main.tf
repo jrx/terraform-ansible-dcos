@@ -29,6 +29,21 @@ resource "aws_security_group" "internal_master_sg" {
 
 # All nodes
 
+ingress {
+  from_port = 0
+  to_port = 0
+  protocol = "-1"
+  cidr_blocks = ["${var.subnet_range}"]
+}
+
+  # Ping
+  ingress {
+    from_port = -1
+    to_port = -1
+    protocol = "icmp"
+    cidr_blocks = ["${var.subnet_range}"]
+  }
+
   ingress {
     from_port = 61003
     to_port = 61003
@@ -129,6 +144,7 @@ resource "aws_security_group" "internal_master_sg" {
     cidr_blocks = ["${var.subnet_range}"]
   }
 
+  # Secrets
   ingress {
     from_port = 1337
     to_port = 1337
@@ -164,6 +180,7 @@ resource "aws_security_group" "internal_master_sg" {
     cidr_blocks = ["${var.subnet_range}"]
   }
 
+  # Marathon
   ingress {
     from_port = 8080
     to_port = 8080
@@ -171,6 +188,22 @@ resource "aws_security_group" "internal_master_sg" {
     cidr_blocks = ["${var.subnet_range}"]
   }
 
+  # Cockroach
+  ingress {
+    from_port = 26257
+    to_port = 26257
+    protocol = "tcp"
+    cidr_blocks = ["${var.subnet_range}"]
+  }
+
+  ingress {
+    from_port = 26258
+    to_port = 26258
+    protocol = "tcp"
+    cidr_blocks = ["${var.subnet_range}"]
+  }
+
+  # IAM
   ingress {
     from_port = 8101
     to_port = 8101
@@ -178,6 +211,7 @@ resource "aws_security_group" "internal_master_sg" {
     cidr_blocks = ["${var.subnet_range}"]
   }
 
+  # Mesos DNS
   ingress {
     from_port = 8123
     to_port = 8123
@@ -192,6 +226,7 @@ resource "aws_security_group" "internal_master_sg" {
     cidr_blocks = ["${var.subnet_range}"]
   }
 
+  # Packages
   ingress {
     from_port = 7070
     to_port = 7070
@@ -199,6 +234,7 @@ resource "aws_security_group" "internal_master_sg" {
     cidr_blocks = ["${var.subnet_range}"]
   }
 
+  # Vault
   ingress {
     from_port = 8200
     to_port = 8200
@@ -206,6 +242,7 @@ resource "aws_security_group" "internal_master_sg" {
     cidr_blocks = ["${var.subnet_range}"]
   }
 
+  # Marathon
   ingress {
     from_port = 8443
     to_port = 8443
@@ -213,6 +250,7 @@ resource "aws_security_group" "internal_master_sg" {
     cidr_blocks = ["${var.subnet_range}"]
   }
 
+  # CA
   ingress {
     from_port = 8888
     to_port = 8888
@@ -220,6 +258,7 @@ resource "aws_security_group" "internal_master_sg" {
     cidr_blocks = ["${var.subnet_range}"]
   }
 
+  # Metronome
   ingress {
     from_port = 9090
     to_port = 9090
@@ -234,6 +273,7 @@ resource "aws_security_group" "internal_master_sg" {
     cidr_blocks = ["${var.subnet_range}"]
   }
 
+  # Packages
   ingress {
     from_port = 9990
     to_port = 9990
@@ -241,6 +281,7 @@ resource "aws_security_group" "internal_master_sg" {
     cidr_blocks = ["${var.subnet_range}"]
   }
 
+  # History Service
   ingress {
     from_port = 15055
     to_port = 15055
@@ -248,6 +289,7 @@ resource "aws_security_group" "internal_master_sg" {
     cidr_blocks = ["${var.subnet_range}"]
   }
 
+  # Marathon
   ingress {
     from_port = 15101
     to_port = 15101
@@ -255,6 +297,7 @@ resource "aws_security_group" "internal_master_sg" {
     cidr_blocks = ["${var.subnet_range}"]
   }
 
+  # Metronome
   ingress {
     from_port = 15201
     to_port = 15201
@@ -262,6 +305,7 @@ resource "aws_security_group" "internal_master_sg" {
     cidr_blocks = ["${var.subnet_range}"]
   }
 
+  # Metrics
   ingress {
     from_port = 62500
     to_port = 62500
@@ -269,12 +313,30 @@ resource "aws_security_group" "internal_master_sg" {
     cidr_blocks = ["${var.subnet_range}"]
   }
 
+  # Spartan
   ingress {
     from_port = 53
     to_port = 53
     protocol = "udp"
     cidr_blocks = ["${var.subnet_range}"]
   }
+
+  # Dynamic Ports
+  ingress {
+    from_port = 32001
+    to_port = 65535
+    protocol = "tcp"
+    cidr_blocks = ["${var.subnet_range}"]
+  }
+
+  # Dynamic Ports
+  ingress {
+    from_port = 32001
+    to_port = 65535
+    protocol = "udp"
+    cidr_blocks = ["${var.subnet_range}"]
+  }
+
 
   egress {
     from_port = 0
@@ -290,6 +352,16 @@ resource "aws_security_group" "internal_agent_sg" {
   vpc_id = "${var.vpc_id}"
 
   # All nodes
+
+
+
+  # Ping
+  ingress {
+    from_port = -1
+    to_port = -1
+    protocol = "icmp"
+    cidr_blocks = ["${var.subnet_range}"]
+  }
 
   ingress {
     from_port = 61003
@@ -385,13 +457,6 @@ resource "aws_security_group" "internal_agent_sg" {
   }
 
   ingress {
-    from_port = 64000
-    to_port = 64000
-    protocol = "tcp"
-    cidr_blocks = ["${var.subnet_range}"]
-  }
-
-  ingress {
     from_port = 1025
     to_port = 2180
     protocol = "tcp"
@@ -433,6 +498,22 @@ resource "aws_security_group" "internal_agent_sg" {
     cidr_blocks = ["${var.subnet_range}"]
   }
 
+  # Dynamic Ports
+  ingress {
+    from_port = 32001
+    to_port = 65535
+    protocol = "tcp"
+    cidr_blocks = ["${var.subnet_range}"]
+  }
+
+  # Dynamic Ports
+  ingress {
+    from_port = 32001
+    to_port = 65535
+    protocol = "udp"
+    cidr_blocks = ["${var.subnet_range}"]
+  }
+
   egress {
     from_port = 0
     to_port = 0
@@ -447,6 +528,16 @@ resource "aws_security_group" "internal_public_agent_sg" {
   vpc_id = "${var.vpc_id}"
 
   # All nodes
+
+
+
+  # Ping
+  ingress {
+    from_port = -1
+    to_port = -1
+    protocol = "icmp"
+    cidr_blocks = ["${var.subnet_range}"]
+  }
 
   ingress {
     from_port = 61003
@@ -518,8 +609,8 @@ resource "aws_security_group" "internal_public_agent_sg" {
     cidr_blocks = ["${var.subnet_range}"]
   }
 
-  # Agent
-
+  # # Agent
+  #
   ingress {
     from_port = 5051
     to_port = 5051
@@ -592,6 +683,7 @@ resource "aws_security_group" "internal_public_agent_sg" {
 
   # Public Agent
 
+  # Marathon-LB
   ingress {
     from_port = 80
     to_port = 80
@@ -610,6 +702,22 @@ resource "aws_security_group" "internal_public_agent_sg" {
     from_port = 9090
     to_port = 9090
     protocol = "tcp"
+    cidr_blocks = ["${var.subnet_range}"]
+  }
+
+  # Dynamic Ports
+  ingress {
+    from_port = 32001
+    to_port = 65535
+    protocol = "tcp"
+    cidr_blocks = ["${var.subnet_range}"]
+  }
+
+  # Dynamic Ports
+  ingress {
+    from_port = 32001
+    to_port = 65535
+    protocol = "udp"
     cidr_blocks = ["${var.subnet_range}"]
   }
 
