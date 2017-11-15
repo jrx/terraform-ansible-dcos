@@ -29,13 +29,6 @@ resource "aws_security_group" "internal_master_sg" {
 
 # All nodes
 
-ingress {
-  from_port = 0
-  to_port = 0
-  protocol = "-1"
-  cidr_blocks = ["${var.subnet_range}"]
-}
-
   # Ping
   ingress {
     from_port = -1
