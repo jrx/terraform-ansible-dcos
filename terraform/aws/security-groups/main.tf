@@ -106,7 +106,7 @@ resource "aws_security_group" "internal_master_sg" {
   # Metronome
   #ingress { from_port = 15201 to_port = 15201 protocol = "tcp" cidr_blocks = ["${var.subnet_range}"] }
   # Metrics
-  #ingress { from_port = 62500 to_port = 62500 protocol = "tcp" cidr_blocks = ["${var.subnet_range}"] }
+  ingress { from_port = 62500 to_port = 62500 protocol = "tcp" cidr_blocks = ["${var.subnet_range}"] }
 
   # Master Egress to Agents
 
@@ -123,8 +123,8 @@ resource "aws_security_group" "internal_master_sg" {
   egress { from_port = 8182 to_port = 32000 protocol = "tcp" cidr_blocks = ["${var.subnet_range}"] }
 
   # Dynamic Ports
-  # ingress { from_port = 32001 to_port = 65535 protocol = "tcp" cidr_blocks = ["${var.subnet_range}"] }
-  # egress { from_port = 32001 to_port = 65535 protocol = "tcp" cidr_blocks = ["${var.subnet_range}"] }
+  ingress { from_port = 32001 to_port = 65535 protocol = "tcp" cidr_blocks = ["${var.subnet_range}"] }
+  egress { from_port = 32001 to_port = 65535 protocol = "tcp" cidr_blocks = ["${var.subnet_range}"] }
 
   #NTP
   ingress { from_port = 123 to_port = 123 protocol = "udp" cidr_blocks = ["0.0.0.0/0"] }
@@ -223,7 +223,7 @@ resource "aws_security_group" "internal_agent_sg" {
   # Metronome
   #egress {   from_port = 15201   to_port = 15201   protocol = "tcp"   cidr_blocks = ["${var.subnet_range}"] }
   # Metrics
-  #egress {   from_port = 62500   to_port = 62500   protocol = "tcp"   cidr_blocks = ["${var.subnet_range}"] }
+  egress {   from_port = 62500   to_port = 62500   protocol = "tcp"   cidr_blocks = ["${var.subnet_range}"] }
   # Spartan
   egress {   from_port = 53   to_port = 53   protocol = "udp"   cidr_blocks = ["${var.subnet_range}"] }
 
@@ -250,8 +250,8 @@ resource "aws_security_group" "internal_agent_sg" {
   egress { from_port = 8182 to_port = 32000 protocol = "tcp" cidr_blocks = ["${var.subnet_range}"] }
 
   # Dynamic Ports
-  # ingress { from_port = 32001 to_port = 65535 protocol = "tcp" cidr_blocks = ["${var.subnet_range}"] }
-  # egress { from_port = 32001 to_port = 65535 protocol = "tcp" cidr_blocks = ["${var.subnet_range}"] }
+  ingress { from_port = 32001 to_port = 65535 protocol = "tcp" cidr_blocks = ["${var.subnet_range}"] }
+  egress { from_port = 32001 to_port = 65535 protocol = "tcp" cidr_blocks = ["${var.subnet_range}"] }
 
   #NTP
   ingress { from_port = 123 to_port = 123 protocol = "udp" cidr_blocks = ["0.0.0.0/0"] }
@@ -350,7 +350,7 @@ resource "aws_security_group" "internal_public_agent_sg" {
   # Metronome
   #egress {   from_port = 15201   to_port = 15201   protocol = "tcp"   cidr_blocks = ["${var.subnet_range}"] }
   # Metrics
-  #egress {   from_port = 62500   to_port = 62500   protocol = "tcp"   cidr_blocks = ["${var.subnet_range}"] }
+  egress {   from_port = 62500   to_port = 62500   protocol = "tcp"   cidr_blocks = ["${var.subnet_range}"] }
   # Spartan
   egress {   from_port = 53   to_port = 53   protocol = "udp"   cidr_blocks = ["${var.subnet_range}"] }
 
