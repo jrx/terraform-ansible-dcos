@@ -122,9 +122,9 @@ resource "aws_security_group" "internal_master_sg" {
   egress { from_port = 8082 to_port = 8180 protocol = "tcp" cidr_blocks = ["${var.subnet_range}"] }
   egress { from_port = 8182 to_port = 32000 protocol = "tcp" cidr_blocks = ["${var.subnet_range}"] }
 
-  # Dynamic Ports
-  ingress { from_port = 32001 to_port = 65535 protocol = "tcp" cidr_blocks = ["${var.subnet_range}"] }
-  egress { from_port = 32001 to_port = 65535 protocol = "tcp" cidr_blocks = ["${var.subnet_range}"] }
+  # Ephemeral Ports
+  ingress { from_port = 32768 to_port = 60999 protocol = "tcp" cidr_blocks = ["${var.subnet_range}"] }
+  egress { from_port = 32768 to_port = 60999 protocol = "tcp" cidr_blocks = ["${var.subnet_range}"] }
 
   #NTP
   ingress { from_port = 123 to_port = 123 protocol = "udp" cidr_blocks = ["0.0.0.0/0"] }
@@ -199,7 +199,7 @@ resource "aws_security_group" "internal_agent_sg" {
   #egress {   from_port = 26257   to_port = 26257   protocol = "tcp"   cidr_blocks = ["${var.subnet_range}"] }
   #egress {   from_port = 26258   to_port = 26258   protocol = "tcp"   cidr_blocks = ["${var.subnet_range}"] }
   # IAM
-  egress {   from_port = 8101   to_port = 8101   protocol = "tcp"   cidr_blocks = ["${var.subnet_range}"] }
+  #egress {   from_port = 8101   to_port = 8101   protocol = "tcp"   cidr_blocks = ["${var.subnet_range}"] }
   # Mesos DNS
   egress {   from_port = 8123   to_port = 8123   protocol = "tcp"   cidr_blocks = ["${var.subnet_range}"] }
   egress {   from_port = 8181   to_port = 8181   protocol = "tcp"   cidr_blocks = ["${var.subnet_range}"] }
@@ -215,13 +215,13 @@ resource "aws_security_group" "internal_agent_sg" {
   egress {   from_port = 9090   to_port = 9090   protocol = "tcp"   cidr_blocks = ["${var.subnet_range}"] }
   egress {   from_port = 9443   to_port = 9443   protocol = "tcp"   cidr_blocks = ["${var.subnet_range}"] }
   # Packages
-  egress {   from_port = 9990   to_port = 9990   protocol = "tcp"   cidr_blocks = ["${var.subnet_range}"] }
+  #egress {   from_port = 9990   to_port = 9990   protocol = "tcp"   cidr_blocks = ["${var.subnet_range}"] }
   # History Service
   #egress {   from_port = 15055   to_port = 15055   protocol = "tcp"   cidr_blocks = ["${var.subnet_range}"] }
   # Marathon
-  #egress {   from_port = 15101   to_port = 15101   protocol = "tcp"   cidr_blocks = ["${var.subnet_range}"] }
-  # Metronome
-  #egress {   from_port = 15201   to_port = 15201   protocol = "tcp"   cidr_blocks = ["${var.subnet_range}"] }
+  egress {   from_port = 15101   to_port = 15101   protocol = "tcp"   cidr_blocks = ["${var.subnet_range}"] }
+  #Metronome
+  egress {   from_port = 15201   to_port = 15201   protocol = "tcp"   cidr_blocks = ["${var.subnet_range}"] }
   # Metrics
   egress {   from_port = 62500   to_port = 62500   protocol = "tcp"   cidr_blocks = ["${var.subnet_range}"] }
   # Spartan
@@ -249,9 +249,9 @@ resource "aws_security_group" "internal_agent_sg" {
   egress { from_port = 8082 to_port = 8180 protocol = "tcp" cidr_blocks = ["${var.subnet_range}"] }
   egress { from_port = 8182 to_port = 32000 protocol = "tcp" cidr_blocks = ["${var.subnet_range}"] }
 
-  # Dynamic Ports
-  ingress { from_port = 32001 to_port = 65535 protocol = "tcp" cidr_blocks = ["${var.subnet_range}"] }
-  egress { from_port = 32001 to_port = 65535 protocol = "tcp" cidr_blocks = ["${var.subnet_range}"] }
+  # Ephemeral Ports
+  ingress { from_port = 32768 to_port = 60999 protocol = "tcp" cidr_blocks = ["${var.subnet_range}"] }
+  egress { from_port = 32768 to_port = 60999 protocol = "tcp" cidr_blocks = ["${var.subnet_range}"] }
 
   #NTP
   ingress { from_port = 123 to_port = 123 protocol = "udp" cidr_blocks = ["0.0.0.0/0"] }
@@ -326,7 +326,7 @@ resource "aws_security_group" "internal_public_agent_sg" {
   #egress {   from_port = 26257   to_port = 26257   protocol = "tcp"   cidr_blocks = ["${var.subnet_range}"] }
   #egress {   from_port = 26258   to_port = 26258   protocol = "tcp"   cidr_blocks = ["${var.subnet_range}"] }
   # IAM
-  egress {   from_port = 8101   to_port = 8101   protocol = "tcp"   cidr_blocks = ["${var.subnet_range}"] }
+  #egress {   from_port = 8101   to_port = 8101   protocol = "tcp"   cidr_blocks = ["${var.subnet_range}"] }
   # Mesos DNS
   egress {   from_port = 8123   to_port = 8123   protocol = "tcp"   cidr_blocks = ["${var.subnet_range}"] }
   egress {   from_port = 8181   to_port = 8181   protocol = "tcp"   cidr_blocks = ["${var.subnet_range}"] }
@@ -337,18 +337,18 @@ resource "aws_security_group" "internal_public_agent_sg" {
   # Marathon
   egress {   from_port = 8443   to_port = 8443   protocol = "tcp"   cidr_blocks = ["${var.subnet_range}"] }
   # CA
-  egress {   from_port = 8888   to_port = 8888   protocol = "tcp"   cidr_blocks = ["${var.subnet_range}"] }
+  #egress {   from_port = 8888   to_port = 8888   protocol = "tcp"   cidr_blocks = ["${var.subnet_range}"] }
   # Metronome
   egress {   from_port = 9090   to_port = 9090   protocol = "tcp"   cidr_blocks = ["${var.subnet_range}"] }
   egress {   from_port = 9443   to_port = 9443   protocol = "tcp"   cidr_blocks = ["${var.subnet_range}"] }
   # Packages
-  egress {   from_port = 9990   to_port = 9990   protocol = "tcp"   cidr_blocks = ["${var.subnet_range}"] }
+  #egress {   from_port = 9990   to_port = 9990   protocol = "tcp"   cidr_blocks = ["${var.subnet_range}"] }
   # History Service
   #egress {   from_port = 15055   to_port = 15055   protocol = "tcp"   cidr_blocks = ["${var.subnet_range}"] }
   # Marathon
-  #egress {   from_port = 15101   to_port = 15101   protocol = "tcp"   cidr_blocks = ["${var.subnet_range}"] }
+  egress {   from_port = 15101   to_port = 15101   protocol = "tcp"   cidr_blocks = ["${var.subnet_range}"] }
   # Metronome
-  #egress {   from_port = 15201   to_port = 15201   protocol = "tcp"   cidr_blocks = ["${var.subnet_range}"] }
+  egress {   from_port = 15201   to_port = 15201   protocol = "tcp"   cidr_blocks = ["${var.subnet_range}"] }
   # Metrics
   egress {   from_port = 62500   to_port = 62500   protocol = "tcp"   cidr_blocks = ["${var.subnet_range}"] }
   # Spartan
@@ -368,9 +368,9 @@ resource "aws_security_group" "internal_public_agent_sg" {
   egress { from_port = 8082 to_port = 8180 protocol = "tcp" cidr_blocks = ["${var.subnet_range}"] }
   egress { from_port = 8182 to_port = 32000 protocol = "tcp" cidr_blocks = ["${var.subnet_range}"] }
 
-  # Dynamic Ports
-  # ingress { from_port = 32001 to_port = 65535 protocol = "tcp" cidr_blocks = ["${var.subnet_range}"] }
-  # egress { from_port = 32001 to_port = 65535 protocol = "tcp" cidr_blocks = ["${var.subnet_range}"] }
+  # Ephemeral Ports
+  #ingress { from_port = 32768 to_port = 60999 protocol = "tcp" cidr_blocks = ["${var.subnet_range}"] }
+  #egress { from_port = 32768 to_port = 60999 protocol = "tcp" cidr_blocks = ["${var.subnet_range}"] }
 
   # Marathon-LB
   ingress { from_port = 80 to_port = 80 protocol = "tcp" cidr_blocks = ["${var.subnet_range}"] }
